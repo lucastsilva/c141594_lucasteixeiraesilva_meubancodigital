@@ -58,12 +58,21 @@ function carregaFavoritos() {
 }
 
 function mostrarFavorito(co_menu_favorito) {
-
     $("div[id=div_menu_favorito_" + co_menu_favorito + "]").show();
 }
 
 function fecharElement(id) {
     $("div[id=div_menu_favorito_" + id + "]").hide();
+}
+
+function apostarMega() {
+    $('#modal_pontos_caixa').modal('toggle');
+    if ($("#div_menu_favorito_269").is(":hidden")) {
+        $("#div_menu_favorito_269").show();
+    }
+
+    $('html, body').animate({ scrollTop: $('#div_menu_favorito_269').offset().top }, 1000);
+    
 }
 
 

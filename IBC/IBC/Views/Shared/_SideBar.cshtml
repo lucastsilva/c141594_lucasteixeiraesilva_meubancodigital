@@ -35,30 +35,33 @@
                     @foreach (var carrossel in Model.categoria.categoriasCarrossel)
                     {
                         <li>
-                            <a href="#">
+                            <a href="#div_menu_favorito_@carrossel.id" onclick="mostrarFavorito(@carrossel.id)">
                                 <img src="https://tgy64w74i567hklqjb-internetbanking.caixa.gov.br/@carrossel.imagemSmartphone" onload="this.width/=2;" />
                                 @carrossel.titulo
                             </a>
-                            <ul>
-                                @foreach (var submenu in carrossel.submenus)
-                                {
-                                    <li>
-                                        <a href="#" onclick="mostrarFavorito(@submenu.id)">@submenu.titulo</a>
-                                        <ul>
-                                            @if (submenu.id != 580)
-                                            {
-                                                foreach (var item in submenu.itens)
-                                                {
-                                                    <li>
-                                                        <a href="#" onclick="mostrarFavorito(@item.id)">@item.titulo</a>
-                                                    </li>
-                                                }
-                                            }                                            
-                                        </ul>
-                                    </li>
+                            @if (carrossel.id != 269)
+                            {
+                                <ul>
+                                    @foreach (var submenu in carrossel.submenus)
+                                    {
+                                        <li>
+                                            <a href="#div_menu_favorito_@submenu.id" onclick="mostrarFavorito(@submenu.id)">@submenu.titulo</a>
+                                            <ul>
 
-                                }
-                            </ul>
+                                                @foreach (var item in submenu.itens)
+                                                {
+                                                <li>
+                                                    <a href="#div_menu_favorito_@item.id" onclick="mostrarFavorito(@item.id)">@item.titulo</a>
+                                                </li>
+                                                }
+
+                                            </ul>
+                                        </li>
+
+                                    }
+                                </ul>
+                            }
+
                         </li>
                     }
                 </ul>
