@@ -1,0 +1,29 @@
+﻿@model IBC.Models.CapturaExtrato
+
+<div class="table-responsive">
+    <table class="table table_extrato">
+        <thead>
+            <tr>
+                <th>Data Movimentação</th>
+                <th>Nr. Documento</th>
+                <th>Histórico</th>
+                <th>Valor</th>
+                <th>Saldo</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var movimentacao in Model.extrato.lsMovimentacao)
+            {
+                <tr>
+                    <td class="extrato_data">@movimentacao.dt_movimentacao</td>
+                    <td>@movimentacao.nr_doc</td>
+                    <td>@movimentacao.historico</td>
+                    <td>@movimentacao.valor</td>
+                    <td class="extrato_saldo">@movimentacao.saldo</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+<hr />

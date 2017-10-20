@@ -1,0 +1,243 @@
+﻿@model IBC.Models.buscaPontosCAIXA
+
+<!-- Basic panel controls -->
+<div class="panel panel-white border-top-lg border-top-orange">
+    <div class="panel-heading">
+        <h6 class="panel-title">Pontos CAIXA</h6>
+        <div class="heading-elements">
+            <ul class="icons-list">
+                <li><a data-action="collapse" data-popup="tooltip" title="Esconder"></a></li>
+                <li><a class="menu_favorito" id="3033" data-popup="tooltip" title="Favorito" onclick="marcarFavorito(this)"><i class="icon-star-empty3"></i></a></li>
+                <li><a data-action="closeElement" onclick="fecharElement(3033)" data-popup="tooltip" title="Fechar"></a></li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="panel-body">
+        <!-- Numbers -->
+        <div class="row text-center">
+            <div class="col-md-6">
+                <div class="content-group">
+                    <h6 class="text-semibold no-margin"><i class="icon-coins position-left text-slate"></i> @Model.saldo</h6>
+                    <span class="text-muted text-size-small">Saldo total</span>
+                </div>
+            </div>
+
+            <div class="col-md-6">
+                <div class="content-group">
+                    <h6 class="text-semibold no-margin"><i class="icon-calendar3 position-left text-slate"></i> @Model.expirar</h6>
+                    <span class="text-muted text-size-small">Pontos a expirar <i class="icon-help" data-popup="tooltip" title="Pontos a expirar no último dia do mês de vencimento desta fatura." data-placement="bottom"></i></span>
+                </div>
+            </div>
+        </div>
+        <!-- /numbers -->
+
+        <div style="text-align:center;">
+            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal_pontos_caixa"><i class="icon-puzzle4"></i> <span>Desafios pontos Caixa</span></button>
+        </div>
+    </div>
+    <div class="panel-footer">
+        <div class="heading-elements">
+            <span class="heading-text text-semibold"><a data-toggle="modal" data-target="#modal_iconified">Saiba mais <i class="icon-play3 position-right"></i></a></span>
+            <ul class="icons-list pull-right">
+                <li><a href="#" data-popup="tooltip" title="Extrato"><i class="icon-file-text"></i></a></li>
+            </ul>
+        </div>
+    </div>
+</div>
+<!-- /basic panel controls -->
+<!-- Iconified modal -->
+<div id="modal_iconified" class="modal fade">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h5 class="modal-title"> Agora seus pontos CAIXA valem ainda mais!</h5>
+            </div>
+            <div class="modal-body">
+                <div class="alert alert-info alert-styled-left text-blue-800 content-group">
+                    <span class="text-semibold">Novidade!</span> Agora você pode utilizar seus pontos CAIXA direto pelo seu Internet Banking.
+                    <button type="button" class="close" data-dismiss="alert">×</button>
+                </div>
+                <h6 class="text-semibold"><i class="icon-puzzle2 position-left"></i> Loteria</h6>
+                <p>Que tal apostar na Mega senha gastando apenas seus pontos CAIXA? Clique em loterias, no menu lateral, faça sua aposta e clique em pagar. Depois, selecione a opção: pagar com pontos CAIXA. E boa sorte!</p>
+                <hr>
+                <h6 class="text-semibold"><i class="icon-transmission position-left"></i> Taxas de transferência</h6>
+                <p>Quando fizer uma transferência, você pode optar por pagar a taxa com seu saldo de pontos.</p>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-link" data-dismiss="modal"><i class="icon-cross"></i> Fechar</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- /iconified modal -->
+
+<div id="modal_pontos_caixa" class="modal fade">
+    <div class="modal-dialog modal-full">
+        <div class="modal-content">
+            <div class="modal-header bg-primary">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h6 class="modal-title">Desafios pontos CAIXA</h6>
+            </div>
+            <div class="modal-body">
+                <div class="col-md-6">
+                    <div class="panel border-left-lg border-left-orange">
+                        <div class="panel-heading">
+                            <h6 class="panel-title text-uppercase">CaixaCap</h6>
+                            <div class="heading-elements">
+                                <span class="heading-text"><span class="label label-success pull-right">720 Pontos Caixa</span></span>
+                            </div>
+                        </div>
+                        <div class="panel-body">
+                            <p class="mb-15">Contrate um dos títulos de capitalização da Caixa Seguradora.</p>
+                            <ul class="list">
+                                <li><a href="#">SuperXcap</a></li>
+                                <li><a href="#">Ideal Cap Aposentadoria</a></li>
+                                <li><a href="#">Ideal Cap</a></li>
+                                <li><a href="#">Ideal Cap Net</a></li>
+                            </ul>
+                        </div>
+                        <div class="panel-footer panel-footer-condensed">
+                            <div class="heading-elements">
+                                <span class="heading-text">Válido até: <span class="text-semibold">22/10/2017</span></span>
+                                <span class="heading-text pull-right">
+                                    <button type="button" class="btn btn-primary btn-ladda btn-ladda-progress" data-style="zoom-out"><span class="ladda-label">Participar</span></button>
+                                </span>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="panel border-left-lg border-left-orange">
+                        <div class="panel-heading">
+                            <h6 class="panel-title text-uppercase">Mega Sena</h6>
+                            <div class="heading-elements">
+                                <span class="heading-text"><span class="label label-success pull-right">60 Pontos Caixa</span></span>
+                            </div>
+                        </div>
+                        <div class="panel-body">
+                            <p class="mb-15">Aposte na Mega Sena pelo InternetBanking.</p>
+                            <p>Para apostar, <a href="#">Clique aqui</a></p>
+                        </div>
+                        <div class="panel-footer panel-footer-condensed">
+                            <div class="heading-elements">
+                                <span class="heading-text">Válido até: <span class="text-semibold">23/10/2017</span></span>
+                                <ul class="list-inline list-inline-condensed heading-text pull-right">
+                                    <li>
+                                        <button type="button" class="btn btn-primary btn-ladda btn-ladda-progress" data-style="zoom-out"><span class="ladda-label">Participar</span></button>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                @* final da linha *@
+                <div class="col-md-6">
+                    <div class="panel border-left-lg border-left-orange">
+                        <div class="panel-heading">
+                            <h6 class="panel-title text-uppercase">Redes sociais</h6>
+                            <div class="heading-elements">
+                                <span class="heading-text"><span class="label label-success pull-right">450 Pontos Caixa</span></span>
+                            </div>
+                        </div>
+                        <div class="panel-body">
+                            <p class="mb-15">Entre no seu Internet Banking utilizando qualquer uma das redes sociais disponíveis na sua página de Login.</p>
+                            <p>Além de facilitar seu Login, você ainda poderá se conectar com seus amigos através do seu Internet Banking</p>
+                        </div>
+                        <div class="panel-footer panel-footer-condensed">
+                            <div class="heading-elements">
+                                <span class="heading-text">Válido até: <span class="text-semibold">30/11/2017</span></span>
+                                <ul class="list-inline list-inline-condensed heading-text pull-right">
+                                    <li>
+                                        <button type="button" class="btn btn-primary btn-ladda btn-ladda-progress" data-style="zoom-out"><span class="ladda-label">Participar</span></button>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="panel border-left-lg border-left-orange">
+                        <div class="panel-heading">
+                            <h6 class="panel-title text-uppercase">Recarga de celular</h6>
+                            <div class="heading-elements">
+                                <span class="heading-text"><span class="label label-success pull-right">150 Pontos Caixa</span></span>
+                            </div>
+                        </div>
+                        <div class="panel-body">
+                            <p class="mb-15">Coloque créditos no seu celular sem sair de casa e ainda ganhe Pontos Caixa por isso.</p>
+                            <p>Para recarregar seu aparelho, <a href="#">Clique aqui</a></p>
+                        </div>
+                        <div class="panel-footer panel-footer-condensed">
+                            <div class="heading-elements">
+                                <span class="heading-text">Válido até: <span class="text-semibold">31/12/2017</span></span>
+                                <ul class="list-inline list-inline-condensed heading-text pull-right">
+                                    <li>
+                                        <button type="button" class="btn btn-primary btn-ladda btn-ladda-progress" data-style="zoom-out"><span class="ladda-label">Participar</span></button>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                @* Fim 2 linha *@
+
+                <div class="col-md-6">
+                    <div class="panel border-left-lg border-left-orange">
+                        <div class="panel-heading">
+                            <h6 class="panel-title text-uppercase">Personalize seu Internet Banking</h6>
+                            <div class="heading-elements">
+                                <span class="heading-text"><span class="label label-success pull-right">100 Pontos Caixa</span></span>
+                            </div>
+                        </div>
+                        <div class="panel-body">
+                            <p class="mb-15">Seu Internet Banking é cada vez mais seu! E agora você pode personalizá-lo da forma que desejar.</p>
+                            <p>Para concluir esse desafio, favorite pelo menos 3 abas, da maneira que preferir.</p>
+                            <p>Para favoritar é muito fácil. Primeiro selecione no menu lateral todos os serviços que deseja visuzalizar sempre que você entrar no seu Internet Banking. Depois, clique na estrela no canto superior direito de cada um dos serviços e pronto!</p>
+                        </div>
+                        <div class="panel-footer panel-footer-condensed">
+                            <div class="heading-elements">
+                                <span class="heading-text">Válido até: <span class="text-semibold">01/12/2017</span></span>
+                                <ul class="list-inline list-inline-condensed heading-text pull-right">
+                                    <li>
+                                        <button type="button" class="btn btn-primary btn-ladda btn-ladda-progress" data-style="zoom-out"><span class="ladda-label">Participar</span></button>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="panel border-left-lg border-left-orange">
+                        <div class="panel-heading">
+                            <h6 class="panel-title text-uppercase">Fatura eletrônica</h6>
+                            <div class="heading-elements">
+                                <span class="heading-text"><span class="label label-success pull-right">220 Pontos Caixa</span></span>
+                            </div>
+                        </div>
+                        <div class="panel-body">
+                            <p class="mb-15">Cancele o recebimento da fatura do seu cartão de crédito pelo correio.</p>
+                            <p>Assim, você recebe sua fatura pelo seu e-mail, ganha pontos e ainda colabora para a preservação ambiental.</p>
+                            <p>Para cancelar sua fatura por correio, <a href="#">Clique aqui</a>.</p>
+                        </div>
+                        <div class="panel-footer panel-footer-condensed">
+                            <div class="heading-elements">
+                                <span class="heading-text">Válido até: <span class="text-semibold">23/10/2017</span></span>
+                                <ul class="list-inline list-inline-condensed heading-text pull-right">
+                                    <li>
+                                        <button type="button" class="btn btn-primary btn-ladda btn-ladda-progress" data-style="zoom-out"><span class="ladda-label">Participar</span></button>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-link" data-dismiss="modal">Fechar</button>
+            </div>
+        </div>
+    </div>
+</div>

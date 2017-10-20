@@ -1,0 +1,140 @@
+﻿/***
+User Profile Sidebar by @keenthemes
+A component of Metronic Theme - #1 Selling Bootstrap 3 Admin Theme in Themeforest: http://j.mp/metronictheme
+Licensed under MIT
+***/
+
+/* 
+    Laranja: #F6822A
+    Azul: #0070AF
+
+*/
+
+body {
+    background: #f5f5f5;
+}
+
+/* Profile container */
+.profile {
+    margin: 20px 0;
+}
+
+/* Profile sidebar */
+.profile-sidebar {
+    padding: 10px 0 10px 0;
+    background: #fff;
+    border: 1px solid;
+    color: #333;
+    font-family: Roboto,Helvetica Neue,Helvetica,Arial,sans-serif;
+    font-size: 13px;
+    line-height: 1.5384616;
+    border-color: #ddd;
+    box-shadow: 0 1px 1px rgba(0,0,0,.05);
+    border-radius: 3px;
+    margin-bottom: 20px;
+}
+
+.profile-userbuttons {
+    text-align: center;
+    margin-top: 10px;
+}
+
+    .profile-userbuttons .btn {
+        text-transform: uppercase;
+        font-size: 11px;
+        font-weight: 600;
+        padding: 6px 15px;
+        margin-right: 5px;
+    }
+
+        .profile-userbuttons .btn:last-child {
+            margin-right: 0px;
+        }
+
+.profile-usermenu {
+    margin-top: 30px;
+}
+
+    
+
+/* Profile Content */
+.profile-content {
+    padding: 20px;
+    background: #fff;
+    min-height: 460px;
+}
+
+/* Imagem LOGO */
+.navbar-brand-img {
+    max-width: 80px;
+    height: auto;
+}
+
+.info-label{
+    color:black;
+    font-weight:bold;
+}
+
+.user-info {
+    color: #F6822A;
+}
+
+
+
+
+
+
+
+.panel {
+    margin-bottom: 20px;
+    border-color: #ddd;
+    color: #333;
+}
+
+.panel {
+    margin-bottom: 20px;
+    background-color: #fff;
+    border: 1px solid transparent;
+    border-radius: 3px;
+    -webkit-box-shadow: 0 1px 1px rgba(0,0,0,.05);
+    box-shadow: 0 1px 1px rgba(0,0,0,.05);
+}
+
+.panel-flat > .panel-heading {
+    padding-top: 20px;
+    padding-bottom: 20px;
+    background-color: #fff;
+}
+
+.panel-heading {
+    position: relative;
+    border-top-right-radius: 3px;
+    border-top-left-radius: 3px;
+}
+
+.panel-heading {
+    padding: 15px 20px;
+    border-bottom: 1px solid transparent;
+    border-top-right-radius: 2px;
+    border-top-left-radius: 2px;
+}
+
+.panel-flat > .panel-heading + .table, .panel-flat > .panel-heading + .table-responsive {
+    border-top: 1px solid #ddd;
+}
+
+.panel > .table-responsive {
+    border: 0;
+    margin-bottom: 0;
+}
+
+.table-responsive {
+    overflow-x: auto;
+    min-height: .01%;
+}
+
+* {
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+}

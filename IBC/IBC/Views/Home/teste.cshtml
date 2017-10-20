@@ -1,0 +1,484 @@
+﻿
+
+
+
+
+
+
+
+
+
+
+<script type="text/javascript">
+    //<![CDATA[
+    // montando os arrays de data mínima permitida, data máxima permitida e mês/ano
+    var dtIniMin = new Array(14);
+    var dtFimMax = new Array(14);
+    var mesAno = new Array(14);
+    var tamArray = 14;
+
+
+    dtIniMin[0] = "01";
+    dtFimMax[0] = "16";
+    mesAno[0] = "10/2017";
+
+    dtIniMin[1] = "01";
+    dtFimMax[1] = "30";
+    mesAno[1] = "09/2017";
+
+    dtIniMin[2] = "01";
+    dtFimMax[2] = "31";
+    mesAno[2] = "08/2017";
+
+    dtIniMin[3] = "01";
+    dtFimMax[3] = "31";
+    mesAno[3] = "07/2017";
+
+    dtIniMin[4] = "01";
+    dtFimMax[4] = "30";
+    mesAno[4] = "06/2017";
+
+    dtIniMin[5] = "01";
+    dtFimMax[5] = "31";
+    mesAno[5] = "05/2017";
+
+    dtIniMin[6] = "01";
+    dtFimMax[6] = "30";
+    mesAno[6] = "04/2017";
+
+    dtIniMin[7] = "01";
+    dtFimMax[7] = "31";
+    mesAno[7] = "03/2017";
+
+    dtIniMin[8] = "01";
+    dtFimMax[8] = "28";
+    mesAno[8] = "02/2017";
+
+    dtIniMin[9] = "01";
+    dtFimMax[9] = "31";
+    mesAno[9] = "01/2017";
+
+    dtIniMin[10] = "01";
+    dtFimMax[10] = "31";
+    mesAno[10] = "12/2016";
+
+    dtIniMin[11] = "01";
+    dtFimMax[11] = "30";
+    mesAno[11] = "11/2016";
+
+    dtIniMin[12] = "01";
+    dtFimMax[12] = "31";
+    mesAno[12] = "10/2016";
+
+    dtIniMin[13] = "01";
+    dtFimMax[13] = "30";
+    mesAno[13] = "09/2016";
+
+
+    function retornar() {
+        retornarCarrossel();
+    }
+
+    function Confirma() {
+        if (!isAcessando()) {
+            with (document.frmExtratoPeriodo) {
+                if (ConsisteDados()) {
+                    // Tipo de Extrato OK
+                    if (rdoFormatoExtrato[1].checked) {
+                        // Gerar resultado em arquivo
+                        for (i = 0; i < rdoFormatoArquivo.length; i++) {
+                            if (rdoFormatoArquivo[i].checked) {
+                                hdnFormatoArquivo.value = rdoFormatoArquivo[i].value;
+                                break;
+                            }
+                        }
+                        action = "gera_arquivo_extrato.processa";
+                        submit();
+                    } else {
+                        setAcessando();
+                        new AjaxNovoIB("data_extrato.processa").processPost($("#frmExtratoPeriodo").serializeArray());
+                    }
+                } else {
+                    // Tipo de Extrato NOK
+                    if (navigator.appName.substr(0, 9) == "Microsoft") {
+                        //window.self.location.href="#ancora";
+                    }
+                }
+            }
+        }
+    }
+    function Retornar() {
+        var paginaRetorno = 'home.processa';
+        if (paginaRetorno == "home.processa") {
+            retornarCarrossel();
+        } else {
+            new AjaxNovoIB('home.processa').processPost($("#frmExtratoPeriodo").serializeArray());
+        }
+
+    }
+
+    function ConsisteDados() {
+        var f = document.frmExtratoPeriodo;
+        var DtInf;
+        var dataMinima;
+        var dataMaxima;
+        var mesAnoEnv;
+        var diaInicio = 0;
+        var diaFinal = 0;
+
+        if (f.rdoTipoExtrato[0].checked) {
+            dataMinima = dtIniMin[0];
+            dataMaxima = dtFimMax[0]
+            mesAnoEnv = mesAno[0];
+        } else {
+            if (f.sltOutroMes[0].selected) {
+                alert("Por favor, escolha um mês.");
+                f.sltOutroMes.focus();
+                return false;
+            } else {
+                var indice = f.sltOutroMes.selectedIndex;
+                dataMinima = dtIniMin[indice];
+                dataMaxima = dtFimMax[indice]
+                mesAnoEnv = mesAno[indice];
+            }
+        }
+        if (f.txtDataInicio.value != "") {
+            diaInicio = f.txtDataInicio.value;
+        } else {
+            diaInicio = dataMinima;
+        }
+        if (f.txtDataFinal.value != "") {
+            diaFinal = f.txtDataFinal.value;
+        } else {
+            diaFinal = dataMaxima;
+        }
+        if (!IsNumber(diaInicio)) {
+            alert("Valor inválido.");
+            f.txtDataInicio.focus();
+            return false;
+        }
+        if (!IsNumber(diaFinal)) {
+            alert("Valor inválido.");
+            f.txtDataFinal.focus();
+            return false;
+        }
+        if (parseInt(diaInicio, 10) > parseInt(diaFinal, 10)) {
+            alert("Valor deve ser menor do que o campo \"Até o dia\".");
+            f.txtDataInicio.focus();
+            return false;
+        }
+        if (parseInt(diaInicio, 10) < parseInt(dataMinima, 10)) {
+            alert("Data inicial menor que a data mínima permitida.");
+            f.txtDataInicio.focus();
+            return false;
+        }
+        if (parseInt(diaFinal, 10) > parseInt(dataMaxima, 10)) {
+            alert("Data final maior que a data máxima permitida.");
+            f.txtDataFinal.focus();
+            return false;
+        }
+        if (diaInicio.length < 2) {
+            diaInicio = "0" + diaInicio;
+        }
+        if (diaFinal.length < 2) {
+            diaFinal = "0" + diaFinal;
+        }
+        f.hdnDataInicio.value = diaInicio + "/" + mesAnoEnv;
+        f.hdnDataFinal.value = diaFinal + "/" + mesAnoEnv;
+        return true;
+    }
+
+    function alteraCombo() {
+        with (document.frmExtratoPeriodo) {
+            if (rdoTipoExtrato[0].checked) {
+
+                sltOutroMes.disabled = true;
+
+                document.frmExtratoPeriodo.txtDataInicio.value = "";
+                document.frmExtratoPeriodo.txtDataFinal.value = "";
+            } else if (rdoTipoExtrato[1].checked) {
+
+                sltOutroMes.disabled = false;
+
+            }
+        }
+    }
+    //bolean flagDesabilita
+    function desabilitaDownload(flag) {
+        with (document.frmExtratoPeriodo) {
+            for (i = 0; i < rdoFormatoArquivo.length; i++) {
+                rdoFormatoArquivo[i].disabled = flag;
+            }
+        }
+    }
+</script>
+
+<!-- breadcrumb -->
+<dl id="breadcrumb" class="breadcrumb" tabindex="" alt="">
+    <dt class="hide">Você está em:</dt>
+</dl>
+<!-- END breadcrumb -->
+<!-- breadcrumb SCRIPT-->
+
+<script>
+    (function ($) {
+        var url = window.location.href.replace(/.*\//, '');
+        $.breadcrumb("breadcrumb", url);
+    })(jQuery);
+</script>
+<!-- END breadcrumb SCRIPT-->
+
+
+<section class="c-16 | container">
+    <div class="col-md-12">
+        <h1>Extrato por per&iacute;odo</h1><a id="_saiba_mais_" title="Horários, limites e outros detalhes" class="saiba-mais | link-ajuda" href="javascript:void(0)" onclick="exibeSaibaMais('/siibc-static/nb/saibaMais/ExtratoPeriodo.js')">Horários e Limites</a><div id="jnlSaibaMais" style="display: none" class="saiba_mais">  <div id="saiba_mais_counteudo" class="Saiba_mais_content"><a name="topo"></a>    <div class="bt_fechar"><a href="javascript:;" onclick="$('#jnlSaibaMais').hide();">      <img src="/siibc-static/nb/img/bt_fechar.gif" width="80" height="36" border="0" title="Fechar"></a>    </div>    <div id="conteudoSaibaMais" class="tab_content"></div>  </div></div><div id="__divRelativo" class="clear">&nbsp;</div><div id="__divSuperior__" class="clear | bottom-margin"><div id="__divCombos__" class="left"></div><div id="__divBotoesSup__" class="right"></div></div><div id="__div_espacamento__"></div>
+
+        <form name="frmExtratoPeriodo" id="frmExtratoPeriodo" class="normal" action="" method="post" onsubmit="return false;">
+
+
+            <input type='hidden' name="token" id="token" value="6830b4ba1ea62a61f2a62e3eca56d80">
+
+
+            <input type='hidden' name="extratoEmArquivo" id="extratoEmArquivo" value="false">
+
+
+
+            <input type='hidden' name="hdnFormatoArquivo" id="hdnFormatoArquivo" value="">
+
+            <input type='hidden' name="hdnDataInicio" id="hdnDataInicio" value="">
+
+            <input type='hidden' name="hdnDataFinal" id="hdnDataFinal" value="">
+
+            <input type='hidden' name="hdnMoneyExtrato" id="hdnMoneyExtrato" value="2">
+
+            <input type='hidden' name="token" id="token" value="6830b4ba1ea62a61f2a62e3eca56d80">
+
+
+            <fieldset>
+                <div class="pie | clear | title-box">Escolha o tipo de extrato</div><span class="clear | pie | box-radio">
+                    <label for="rdoTipoExtratoAtual" class="clear"><input type="radio" name="rdoTipoExtrato" id="rdoTipoExtratoAtual" value="A" checked title="Mês atual">MÊS ATUAL</label>
+                    <label for="rdoTipoExtratoOutro" class="clear"><input type="radio" name="rdoTipoExtrato" id="rdoTipoExtratoOutro" value="O" title="Outro mês">OUTRO MÊS:&nbsp;</label>
+                    <span class="fullsize | SelectGrey"
+                          title="Escolha outro mês">
+                        <select name="sltOutroMes" id="sltOutroMes" class="selectbox combobox"
+                                style="display:block; width:220px;"
+                                tabindex="0"
+                                disabled>
+
+                            <option selected="selected" value="0">Escolha o mês</option>
+
+                            <option value="1">Setembro/2017</option>
+
+                            <option value="2">Agosto/2017</option>
+
+                            <option value="3">Julho/2017</option>
+
+                            <option value="4">Junho/2017</option>
+
+                            <option value="5">Maio/2017</option>
+
+                            <option value="6">Abril/2017</option>
+
+                            <option value="7">Março/2017</option>
+
+                            <option value="8">Fevereiro/2017</option>
+
+                            <option value="9">Janeiro/2017</option>
+
+                            <option value="10">Dezembro/2016</option>
+
+                            <option value="11">Novembro/2016</option>
+
+                            <option value="12">Outubro/2016</option>
+
+                            <option value="13">Setembro/2016</option>
+
+                        </select>
+                    </span>
+
+
+                </span>
+            </fieldset>
+
+            <fieldset>
+                <span class="clear | pie | box-radio">
+                    <label for="txtDataInicio">Desde o dia&nbsp;</label>
+                    <div class="relativeinput">
+                        <input type="text"
+                               id="txtDataInicio"
+                               name="txtDataInicio"
+                               fieldType="text"
+                               class="pie | input-grey  | "
+                               size="2"
+                               style="width:1.2em"
+                               tabindex="-1"
+                               maxlength="2"
+                               value=""
+                               alt="Desde o dia"
+                               title="Desde o dia"
+                               placeholder=""
+                               onpaste=""
+                               ondrop=""
+                               onchange=""
+                               onclick=""
+                               ondblclick=""
+                               onkeyup="fPulaCampo(document.frmExtratoPeriodo.txtDataInicio, document.frmExtratoPeriodo.txtDataFinal, 2);"
+                               onkeypress=""
+                               onkeydown=""
+                               onfocus="this.select()"
+                               onblur="" />
+                    </div>
+
+                    <script>
+                        (function ($) {
+                            $.Topic("/loadPage/initComponent").publish("txtDataInicio");
+                            yepnope({
+                                load: ["/siibc-static/nb/js/br/gov/caixa/components.js",
+                                    "/siibc-static/nb/js/componentes/jquery.textbox.js"],
+                                complete: function () {
+                                    $.customMask("input[type=text], input[type=password], textarea");
+                                    $.Topic("/loadPage/finishComponent").publish("txtDataInicio");
+                                }
+                            });
+                        })(jQuery);
+                    </script>
+                    <label for="txtDataFinal">&nbsp;até o dia&nbsp;</label>
+                    <div class="relativeinput">
+                        <input type="text"
+                               id="txtDataFinal"
+                               name="txtDataFinal"
+                               fieldType="text"
+                               class="pie | input-grey  | "
+                               size="2"
+                               style="width:1.2em"
+                               tabindex="-1"
+                               maxlength="2"
+                               value=""
+                               alt="Até o dia"
+                               title="Até o dia"
+                               placeholder=""
+                               onpaste=""
+                               ondrop=""
+                               onchange=""
+                               onclick=""
+                               ondblclick=""
+                               onkeyup=""
+                               onkeypress=""
+                               onkeydown=""
+                               onfocus="this.select()"
+                               onblur="" />
+                    </div>
+
+                    <script>
+                        (function ($) {
+                            $.Topic("/loadPage/initComponent").publish("txtDataFinal");
+                            yepnope({
+                                load: ["/siibc-static/nb/js/br/gov/caixa/components.js",
+                                    "/siibc-static/nb/js/componentes/jquery.textbox.js"],
+                                complete: function () {
+                                    $.customMask("input[type=text], input[type=password], textarea");
+                                    $.Topic("/loadPage/finishComponent").publish("txtDataFinal");
+                                }
+                            });
+                        })(jQuery);
+                    </script>
+                </span>
+            </fieldset>
+            <div></div>
+
+            <fieldset>
+                <div class="pie | clear | title-box">Escolha a forma do extrato</div><span class="clear | pie | box-radio">
+                    <label for="rdoFormatoExtratoTela" class="clear"><input type="radio" name="rdoFormatoExtrato" id="rdoFormatoExtratoTela" value="" title="Visualizar em Tela">Visualizar em Tela</label>
+                    <label for="rdoFormatoExtratoArquivo" class="clear"><input type="radio" name="rdoFormatoExtrato" id="rdoFormatoExtratoArquivo" value="" title="Gerar Arquivo para Gerenciadores Financeiros">Gerar Arquivo para Gerenciadores Financeiros</label>
+                    <div class="left-margin">
+                        <label for="rdoFormatoArquivoTxt" class="clear"><input type="radio" name="rdoFormatoArquivo" id="rdoFormatoArquivoTxt" value="txt" disabled="true" checked title="TXT">TXT</label>
+                        <label for="rdoFormatoArquivoOfc" class="clear"><input type="radio" name="rdoFormatoArquivo" id="rdoFormatoArquivoOfc" value="ofc" disabled="true" title="OFC">OFC</label>
+                        <label for="rdoFormatoArquivoOfx" class="clear"><input type="radio" name="rdoFormatoArquivo" id="rdoFormatoArquivoOfx" value="ofx" disabled="true" title="OFX">OFX</label>
+                    </div>
+                </span>
+            </fieldset>
+
+            <div></div>
+            <div id="cbgextratoperiodo" class="clear-fix-cvv | button-group">
+                <div class="left-fix-cvv">
+                    <button id="btnRetornarcbgextratoperiodo"
+                            class="button-orange button-clean
+
+	    			btn-scape-blue
+
+				"
+                            type="button"
+                            title="Retornar"
+                            onclick="javascript:Retornar()">
+                        <span>
+                            Retornar
+                        </span>
+                    </button>
+                </div>
+                <div class="right-fix-cvv">
+                    <button id="siglasAbreviacoes"
+                            type="button"
+                            class="button-blue
+	    auto-tab-index-not-first-item
+	"
+                            title="Siglas e Abreviações"
+                            tabindex=""
+                            onclick="javascript:fPopUp('http://www.caixa.gov.br/Downloads/contas-pessoa-fisica/glossario.pdf','','')">
+                        <span>
+                            Siglas e Abreviações
+                        </span>
+                    </button>
+
+                    <button id="confirma"
+                            type="button"
+                            class="button-orange
+	    auto-tab-index-not-first-item
+	"
+                            title="Continuar"
+                            tabindex=""
+                            onclick="javascript:Confirma();">
+                        <span>
+                            Continuar
+                        </span>
+                    </button>
+
+                </div>
+            </div>
+
+
+            <script type="text/javascript">
+                $(document).ready(function () {
+                    if (document.frmExtratoPeriodo != undefined) {
+                        desabilitaDownload(true);
+                        document.frmExtratoPeriodo.rdoFormatoExtrato[0].checked = true;
+                        document.frmExtratoPeriodo.rdoFormatoExtrato[1].checked = false;
+
+                        // Esta parte foi colocada para tratar de erros encontrados no ASES. O evento onclick nao deve ser colocado diretamente nos campos.
+                        var onclickTipoExtratoAtual = document.getElementById("rdoTipoExtratoAtual");
+                        onclickTipoExtratoAtual.onclick = function () { alteraCombo(); };
+
+                        var onclickTipoExtratoOutro = document.getElementById("rdoTipoExtratoOutro");
+                        onclickTipoExtratoOutro.onclick = function () { alteraCombo(); };
+
+                        var onclickFormatoExtratoTela = document.getElementById("rdoFormatoExtratoTela");
+                        onclickFormatoExtratoTela.onclick = function () { desabilitaDownload(true); };
+
+                        var onclickFormatoExtratoArquivo = document.getElementById("rdoFormatoExtratoArquivo");
+                        onclickFormatoExtratoArquivo.onclick = function () { desabilitaDownload(false); };
+                    }
+                });
+            </script>
+
+        </form>
+
+        <script>document.getElementById('__divRelativo').innerHTML = '';</script>
+        <script>document.getElementById('__divCombos__').innerHTML = '<div class="left-fix-select"><p class="txt_interna">Escolha a conta que deseja utilizar:</p><div class="nm-top"><select id="_comboSelecaoConta"  title="Selecione a Agência, Operação e Conta" name="siperResourceCorrente" class="selectbox dropdown" style="display: block"><option value="044600001000000021266" selected="selected">4460 / 001 / 00021266-1                          </option><!--selecaoConta - acaoTransacao: null--><!--selecaoConta - cadastroTransacao: null--></select></div><!--selecaoConta - acaoTransacao: null--><!--selecaoConta - cadastroTransacao: null--><!-- G-Buster --><div id="divObjGB"></div></div>';</script>
+    </div></div>
+</section>
+<script type="text/javascript">
+    //<![CDATA[
+    siperResHidden = document.createElement("input"); siperResHidden.setAttribute("type", "hidden"); siperResHidden.setAttribute("name", "siperResourceCorrente"); siperResHidden.setAttribute("id", "__siperResourceCorrente"); siperResHidden.value = '044600001000000021266'; document.frmExtratoPeriodo.appendChild(siperResHidden); function selecionarConta(siperResource, submit) { document.getElementById("__siperResourceCorrente").value = siperResource.value; if (submit) { if (!isAcessando()) { setAcessando(); $('#frmGBPluginConta').find(':input').each(function (i, el) { $('#frmExtratoPeriodo').append(el); }); $('#frmGBPluginConta').html(''); new AjaxNovoIB('extrato_periodo.processa').processPost($('#frmExtratoPeriodo').serializeArray()); document.getElementById("_comboSelecaoConta").disabled = true; } } } function submitSelecaoConta(selecao) { if (selecao == "bloqueada") { alert("Conta bloqueada."); document.getElementById("_comboSelecaoConta").value = contaSelecionada; } else { ; selecionarConta(document.getElementById("_comboSelecaoConta"), true); } } var contaSelecionada = document.getElementById("_comboSelecaoConta").value;
+    document.getElementById("_comboSelecaoConta").disabled = false;
+//]]>
+</script>
+<script>if (document.getElementById('_saiba_mais_')) { if (document.getElementById('_saiba_mais_').disabled == false) { document.getElementById('_saiba_mais_').focus(); } } else if (document.getElementsByName('_saiba_mais_')[0]) { if (document.getElementsByName('_saiba_mais_')[0].disabled == false) { document.getElementsByName('_saiba_mais_')[0].focus(); } }</script>

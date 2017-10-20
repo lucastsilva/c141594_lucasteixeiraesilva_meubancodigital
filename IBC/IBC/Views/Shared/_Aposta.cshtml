@@ -1,0 +1,112 @@
+﻿@model IBC.Models.loteriaView
+<style>
+    .nrApostas {
+        width: 30px;
+        height: 30px;
+        margin-top: 5px;
+    }
+
+        .nrApostas:hover {
+            background-color: #1769AA;
+            color: white;
+        }
+
+        .nrApostas:active {
+            background-color: yellow;
+        }
+
+    .nrAtivo {
+        background-color: #1769AA;
+        color: white;
+    }
+
+        .nrAtivo:hover {
+            background-color: #1769AA;
+            color: red;
+        }
+</style>
+
+
+
+
+<div class="panel panel-white border-top-lg border-top-blue">
+    <div class="panel-heading">
+        <h6 class="panel-title">Mega Sena</h6>
+        <div class="heading-elements">
+            @*<button type="button" class="btn btn-link daterange-ranges pickadate-translated-pt-br heading-btn text-semibold">
+                    <i class="icon-calendar3 position-left"></i> <span></span> <b class="caret"></b>
+                </button>*@
+            <ul class="icons-list">
+                <li><a data-action="collapse" data-popup="tooltip" title="Esconder"></a></li>
+                <li><a class="menu_favorito" id="580" data-popup="tooltip" title="Favorito" onclick="marcarFavorito(this)"><i class="icon-star-empty3"></i></a></li>
+                <li><a data-action="closeElement" onclick="fecharElement(580)" data-popup="tooltip" title="Fechar"></a></li>
+            </ul>
+        </div>
+    </div>
+    <div class="panel-body">
+        <div class="row">
+            <div class="col-md-6">
+                <h6 class="panel-title">
+                    Quantos números você deseja apostar
+                    <br />
+                    @foreach (var nr in Model.lsQtdNrs)
+                    {
+                        <label class="radio-inline radio-right">
+                            <input type="radio" value="@nr" name="qtdNrs" class="styled" @(nr == 6 ? "checked='checked'" : ""  )>
+                            @nr
+                        </label>
+                    }
+                    <br /><br />
+
+                    @for (int i = 1; i <= 60; i++)
+                    {
+                        <a id="nr_@i" onclick="marcarNumero(this)" class="label label-flat border-primary text-primary-600 label-icon nrApostas">@i</a>
+                        if ((i % 10) == 0)
+                        {
+                            <br />
+                        }
+                    }
+                </h6>
+            </div>
+            <div class="col-md-6">
+                <div class="heading-elements">
+                    <br />
+                    <div>
+                        <p id="custoAposta">Sua aposta custará <strong>R$ 3,50</strong></p>
+
+                        <div class="alert alert-info no-border">
+                            <button type="button" class="close" data-dismiss="alert"><span>&times;</span><span class="sr-only">Fechar</span></button>
+                            <span class="text-semibold">Você possui Pontos Caixa disponíveis. Que tal pagar com pontos?</span>
+                        </div>
+
+                        <label for="assEletronica">Assinatura Eletrônica</label>
+                        <input type="password" name="assEletronica" class="form-control" />
+
+                        <br />
+
+
+
+                        <div class="btn-group">
+                            <button type="button" class="btn bg-primary disabled" id="spanPontos">150</button>
+                            <button type="button" class="btn bg-primary"> Pontos CAIXA</button>
+                        </div>
+                        <div class="btn-group">
+                            <button type="button" class="btn bg-success disabled " id="spanCusto">R$ 3,50</button>
+                            <button type="button" class="btn bg-success"> Débito em conta</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="panel-footer">
+    <div class="heading-elements">
+        <span class="heading-text text-semibold"></span>
+        <ul class="icons-list pull-right">
+            <li><a href="#" data-popup="tooltip" title="Minhas apostas"><i class="icon-list-numbered"></i></a></li>
+            <li><a href="#" data-popup="tooltip" title="Saiba mais"><i class="icon-question7"></i></a></li>
+        </ul>
+    </div>
+</div>
+

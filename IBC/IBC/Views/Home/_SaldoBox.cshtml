@@ -1,0 +1,68 @@
+﻿@model IBC.Models.CapturaSaldo
+
+
+						
+<!-- Basic panel controls -->
+<div class="panel panel-white border-top-lg border-top-blue">
+    <div class="panel-heading">
+        <h6 class="panel-title">Saldo</h6>
+        <div class="heading-elements">
+            <ul class="icons-list">
+                <li><a data-action="collapse" data-popup="tooltip" title="Esconder"></a></li>
+                <li><a class="menu_favorito" id="2808" data-popup="tooltip" title="Favorito" onclick="marcarFavorito(this)"><i class="icon-star-empty3"></i></a></li>
+                <li><a data-action="closeElement" onclick="fecharElement(2808)" data-popup="tooltip" title="Fechar"></a></li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="panel-body">
+        
+
+        <div class="row">
+            <div class="col-md-6">
+                <div class="chart-container text-center content-group">
+                    <div class="display-inline-block" id="google-pie-3d"></div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <!-- Table footer styling -->
+                    <div class="table-responsive">
+                        <table class="table">
+                            <tbody>
+                                <tr>
+                                    <td>Saldo</td>
+                                    <td><span class="vrSaldoPie">@Model.saldo.saldo</span> @Model.saldo.sinalSaldo</td>
+                                </tr>
+                                <tr>
+                                    <td>Limite do Cheque Especial</td>
+                                    <td><span class="vrSaldoPie">@Model.saldo.limite</span></td>
+                                </tr>
+                                <tr>
+                                    <td>Saldo bloqueado</td>
+                                    <td><span class="vrSaldoPie">@Model.saldo.saldoBloqueado</span></td>
+                                </tr>
+                                <tr>
+                                    <td>Saldo disponivel c/limite</td>
+                                    <td>@Model.saldo.saldoDisponivelComLimite</td>
+                                </tr>
+                            </tbody>
+                            <tfoot>
+                                <tr class="bg-teal-400">
+                                    <th>Saldo total</th>
+                                    <th>@Model.saldo.saldoTotal</th>
+                                </tr>
+                            </tfoot>
+                        </table>
+                    </div>
+                <!-- /table footer styling -->
+            </div>
+        </div>
+    </div>
+</div>
+<!-- /basic panel controls -->
+
+
+<!-- Theme JS files -->
+<script type="text/javascript" src="https://www.google.com/jsapi"></script>
+<script type="text/javascript" src="~/assets/js/charts/google/pies/pie_3d.js"></script>
+<!-- /theme JS files -->

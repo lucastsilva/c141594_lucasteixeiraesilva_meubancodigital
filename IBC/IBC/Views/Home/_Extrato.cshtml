@@ -1,0 +1,66 @@
+﻿@model IBC.Models.CapturaExtrato
+
+<link href="~/assets/css/icons/fontawesome/styles.min.css" rel="stylesheet" />
+
+<!-- Theme JS files -->
+<script type="text/javascript" src="~/assets/js/plugins/pickers/daterangepicker.js"></script>
+<script type="text/javascript" src="~/assets/js/plugins/pickers/anytime.min.js"></script>
+<script type="text/javascript" src="~/assets/js/plugins/pickers/pickadate/picker.js"></script>
+<script type="text/javascript" src="~/assets/js/plugins/pickers/pickadate/picker.date.js"></script>
+<script type="text/javascript" src="~/assets/js/plugins/pickers/pickadate/picker.time.js"></script>
+<script type="text/javascript" src="~/assets/js/pages/picker_date.js"></script>
+
+
+
+<!-- /theme JS files -->
+<!-- Basic panel controls -->
+<div class="panel panel-white border-top-lg border-top-blue">
+    <div class="panel-heading">
+        <h6 class="panel-title">Extrato</h6>
+        <div class="heading-elements">
+            <button type="button" class="btn btn-link daterange-ranges pickadate-translated-pt-br heading-btn text-semibold">
+                <i class="icon-calendar3 position-left"></i> <span></span> <b class="caret"></b>
+            </button>
+
+            <ul class="icons-list">
+                <li><a data-action="collapse" data-popup="tooltip" title="Esconder"></a></li>
+                <li><a class="menu_favorito" id="2810" data-popup="tooltip" title="Favorito" onclick="marcarFavorito(this)"><i class="icon-star-empty3"></i></a></li>
+                <li><a data-action="closeElement" onclick="fecharElement(2810)" data-popup="tooltip" title="Fechar"></a></li>
+            </ul>
+        </div>
+    </div>
+    <div class="panel-body">
+        <div class="row" id="extratoTable">
+            @{Html.RenderPartial("_ExtratoTable", Model);}
+
+
+        </div>
+        <div class="row">
+            <div id="extrato-stats"></div>
+            <div class="chart-container">
+            </div>
+        </div>
+    </div>
+    <div class="panel-footer">
+        <div class="heading-elements">
+            <span class="heading-text text-semibold"></span>
+            <ul class="icons-list pull-right">
+                <li><a href="#" data-popup="tooltip" title="Imprimir"><i class="icon-printer2"></i></a></li>
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" data-popup="tooltip" title="Gerar em arquivo"><i class="icon-file-download"></i> <span class="caret"></span></a>
+                    <ul class="dropdown-menu dropdown-menu-right">
+                        <li><a href="#">TXT</a></li>
+                        <li><a href="#">OFC</a></li>
+                        <li><a href="#">OFX</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+<!-- /basic panel controls -->
+<script type="text/javascript" src="~/assets/js/plugins/visualization/d3/d3.min.js"></script>
+<script type="text/javascript" src="~/assets/js/plugins/visualization/d3/d3_tooltip.js"></script>
+<script src="~/Scripts/_Extrato.js"></script>
+
+
